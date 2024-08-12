@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { ModuleFederationPlugin } = require("webpack").container;
-const deps = require("./package.json").dependencies;
 const path = require("path");
 module.exports = {
   mode: "development",
@@ -9,15 +8,16 @@ module.exports = {
       directory: path.join(__dirname, "public"),
     },
     compress: true,
-    port: 8080,
+    port: 8082,
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "container",
-      remotes: {
-        products: "products@http://localhost:8081/remoteEntry.js",
-        cart: "cart@http://localhost:8082/remoteEntry.js",
+      name: "cart",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./CartShow": "./src/index",
       },
+      shared: ["@faker-js/faker"],
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
