@@ -14,11 +14,12 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "container",
+      name: "shell",
       remotes: {
         products: "products@http://localhost:8081/remoteEntry.js",
         cart: "cart@http://localhost:8082/remoteEntry.js",
       },
+      shared: { lodash: { singleton: true } },
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",

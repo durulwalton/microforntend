@@ -19,7 +19,7 @@ module.exports = {
       exposes: {
         "./ProductsIndex": "./src/bootstrap",
       },
-      shared: ["@faker-js/faker"],
+      shared: {"lodash":{singleton: true}},
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",

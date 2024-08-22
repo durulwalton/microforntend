@@ -1,14 +1,6 @@
-import { faker } from "@faker-js/faker";
-
+import _ from 'lodash';
 const mount = (el) => {
-  let products = "";
-
-  for (let i = 0; i < 5; i++) {
-    const name = faker.commerce.productName();
-    products += `<div>${name}</div>`;
-  }
-
-  el.innerHTML = products;
+  el.innerHTML = "Products";
 };
 
 if (process.env.NODE_ENV === "development") {

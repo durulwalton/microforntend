@@ -1,28 +1,28 @@
 const path = require("path");
-const { ModuleFederationPlugin } = require("webpack").container;
+const { merge } = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-module.exports = {
+const { ModuleFederationPlugin } = require("webpack").container;
+const commonConfig = require("./webpack.common");
+
+const devConfig = {
   mode: "development",
-  entry: "./src/index.js",
-  output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "dist"),
-  },
   devServer: {
     static: path.join(__dirname, "dist"),
-    port: 8082,
+    port: 8081,
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "cart",
+      name: "marketing",
       filename: "remoteEntry.js",
       exposes: {
-        "./CartShow": "./src/bootstrap",
+        "./MarketingApp": "./src/bootstrap",
       },
-      shared: {"lodash":{singleton: true}},
+      shared: ["react", "react-dom"],
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),
   ],
 };
+
+module.exports = merge(commonConfig, devConfig);

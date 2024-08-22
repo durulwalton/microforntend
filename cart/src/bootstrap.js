@@ -1,8 +1,6 @@
-import { faker } from "@faker-js/faker";
-
+import _ from 'lodash';
 const mount = (el) => {
-  const cartText = `<div>You have ${faker.number.int()} items in your cart</div>`;
-  el.innerHTML = cartText;
+  el.innerHTML = "Cart";
 };
 
 if (process.env.NODE_ENV === "development") {
